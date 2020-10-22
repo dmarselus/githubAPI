@@ -2,7 +2,8 @@ import React, { Component, useState } from "react";
 import { Button, View, FlatList, Dimensions } from "react-native";
 import { SearchBar, Label, ListItem } from "../components";
 const { width, height, fontScale } = Dimensions.get("window");
-export default function HomeScreen() {
+
+export default function HomeScreen({ navigation: { navigate } }) {
   const [query, setQuery] = useState("");
   const [repoArray, setRepoArray] = useState([]);
 
@@ -38,7 +39,9 @@ export default function HomeScreen() {
           <ListItem
             title={name}
             subtitle={owner?.login}
-            onPress={(a) => console.log("a")}
+            onPress={() =>
+              navigate("Detail", { repoName: name, userName: query })
+            }
           />
         )}
       />

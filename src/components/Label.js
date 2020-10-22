@@ -2,8 +2,12 @@ import React from "react";
 import { StyleSheet, Text, Dimensions } from "react-native";
 const { width, height, fontScale } = Dimensions.get("window");
 
-export default function Label({ type = "normal", children }) {
-  return <Text style={styles[type]}>{children}</Text>;
+export default function Label({ type = "normal", children, ...rest }) {
+  return (
+    <Text style={styles[type]} {...rest}>
+      {children}
+    </Text>
+  );
 }
 
 const styles = StyleSheet.create({

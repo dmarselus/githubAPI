@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Button, View, FlatList, Dimensions } from "react-native";
-import { SearchBar, Label, ListItem } from "../components";
+import { View, FlatList, Dimensions, Modal } from "react-native";
+import { SearchBar, Label, ListItem, Popup } from "../components";
+
+import moment from "moment";
 const { width, height, fontScale } = Dimensions.get("window");
 
 export default function DetailScreen({
@@ -10,7 +12,7 @@ export default function DetailScreen({
   }
 }) {
   const [commitsArray, setCommitsArray] = useState([]);
-
+  const [popup, setPopup] = useState(false);
   useEffect(() => {
     setOptions({
       headerLeft: () => (
@@ -26,38 +28,50 @@ export default function DetailScreen({
   async function getCommitsDetail() {
     let formattedRepoName = repoName.toLowerCase().trim();
     let formattedUserName = userName.toLowerCase().trim();
-    //https://api.github.com/repos/dmarselus/roombachallenge/commits
     const url = `https://api.github.com/repos/${formattedUserName}/${formattedRepoName}/commits`;
     let res = await fetch(url).then((res) => res.json());
-    console.log(res);
     if (res.length) setCommitsArray(res);
     else setCommitsArray([]);
   }
 
   function renderHeader() {
-    return <Label type="header">{repoName}</Label>;
+    return <Label type="header">{`${userName}/${repoName}`}</Label>;
   }
 
   function renderBody() {
     return (
       <FlatList
         data={commitsArray}
+        keyExtractor={(item) => item.sha}
         style={{ maxHeight: height * 0.75, width: "100%", marginTop: 25 }}
         contentContainerStyle={{ paddingBottom: 50 }}
-        renderItem={({ item: { name, owner } }) => (
+        renderItem={({
+          item: {
+            commit: {
+              message,
+              author: { name, date }
+            }
+          }
+        }) => (
           <ListItem
-            title={name}
-            subtitle={owner?.login}
-            onPress={(a) => console.log("a")}
+            title={message}
+            subtitle={moment(date).format("lll")}
+            onPress={() => setPopup(true)}
           />
         )}
       />
     );
   }
+
+  function renderPopup() {
+    if (popup) return <Popup visible={popup} onClose={() => setPopup(false)} />;
+  }
+
   return (
     <View style={{ flex: 1, paddingHorizontal: 50, paddingVertical: 10 }}>
       {renderHeader()}
       {renderBody()}
+      {renderPopup()}
     </View>
   );
 }

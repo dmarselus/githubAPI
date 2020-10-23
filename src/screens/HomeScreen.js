@@ -38,7 +38,8 @@ export default function HomeScreen({ navigation: { navigate } }) {
         renderItem={({ item: { name, owner } }) => (
           <ListItem
             title={name}
-            subtitle={owner?.login}
+            subtitle={`owned by ${owner?.login}`}
+            uri={owner?.avatar_url}
             onPress={() =>
               navigate("Detail", { repoName: name, userName: query })
             }

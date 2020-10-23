@@ -2,7 +2,13 @@ import React, { Component, useState } from "react";
 import { ListItem as ListItemElements, Avatar } from "react-native-elements";
 import { Button, Image, StyleSheet, Text, View, FlatList } from "react-native";
 import Label from "./Label";
-export default function ListItem({ title, subtitle = "", onPress }) {
+export default function ListItem({
+  title,
+  subtitle = "",
+  onPress,
+  uri = null
+}) {
+  console.log(uri);
   return (
     // <View style={{ width: "100%", backgroundColor: "purple" }}>
     //   <Label type="header">{title}</Label>.
@@ -10,11 +16,12 @@ export default function ListItem({ title, subtitle = "", onPress }) {
     // </View>
 
     <ListItemElements bottomDivider onPress={onPress}>
+      {uri && <Avatar source={{ uri }} />}
       <ListItemElements.Content>
         <ListItemElements.Title style={{ color: "black", fontWeight: "bold" }}>
           {title}
         </ListItemElements.Title>
-        <ListItemElements.Subtitle>{`owner: ${subtitle}`}</ListItemElements.Subtitle>
+        <ListItemElements.Subtitle>{subtitle}</ListItemElements.Subtitle>
       </ListItemElements.Content>
       <ListItemElements.Chevron />
     </ListItemElements>

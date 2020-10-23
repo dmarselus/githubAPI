@@ -25,6 +25,7 @@ export default function HomeScreen({ navigation: { navigate } }) {
           onChangeText={(text) => setQuery(text)}
         />
         <Button onPress={() => getUsername(query)} title="Submit" />
+        <Button onPress={() => navigate("Hash")} title="Hash" />
       </View>
     );
   }

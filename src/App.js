@@ -1,5 +1,5 @@
 import React from "react";
-import { HomeScreen, DetailScreen, CommitHash } from "./screens";
+import { HomeScreen, DetailScreen, CommitDetails, CommitHash } from "./screens";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -17,9 +17,11 @@ function App() {
           }
         }}
       >
+        {/* <Stack.Screen name="Hash" component={CommitHash} /> */}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Detail" component={DetailScreen} />
-        <Stack.Screen name="Commit" component={CommitHash} />
+        <Stack.Screen name="Commit" component={CommitDetails} />
+        {/* <Stack.Screen name="Hash" component={CommitHash} /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

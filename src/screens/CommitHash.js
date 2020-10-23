@@ -1,27 +1,28 @@
-import React, { useEffect } from "react";
-import { ScrollView, Dimensions } from "react-native";
-import { Label } from "../components";
-import ReactJson from "react-json-view";
-const { width, height, fontScale } = Dimensions.get("window");
-export default function CommitHash({
-  navigation: { setOptions, goBack },
-  route: {
-    params: { commitObject }
-  }
-}) {
-  useEffect(() => {
-    setOptions({
-      headerLeft: () => (
-        <Label style={{ marginLeft: 2 }} type="header" onPress={() => goBack()}>
-          Back
-        </Label>
-      )
-    });
-  }, []);
+import React, { useRef } from "react";
+import { View, Text } from "react-native";
+import { WebView } from "react-native-webview";
 
+export default function CommitHash({
+  navigation: { setOptions, goBack }
+  // route: {
+  //   params: { commitObject = null }
+  // }
+}) {
+  const WebRef = useRef();
+  let uri = "https://reactnative.dev/";
   return (
-    <ScrollView style={{ height, width, paddingBottom: height * 0.2 }}>
-      <ReactJson src={commitObject} />
-    </ScrollView>
+    // <View>
+    <Text>asdasd</Text>
+    // <WebView
+    //   // ref={WebRef}
+    //   source={{ uri: "https://reactnative.dev/" }}
+    //   // bounces={false}
+    //   // cacheEnabled={false}
+    //   // injectedJavaScript={cleanScreenForUser}
+    //   // javaScriptEnabledAndroid={true}
+    //   // startInLoadingState={true}
+    //   style={{ flex: 1 }}
+    // />
+    // </View>
   );
 }

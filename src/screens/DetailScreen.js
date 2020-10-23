@@ -46,6 +46,7 @@ export default function DetailScreen({
         contentContainerStyle={{ paddingBottom: 50 }}
         renderItem={({ item }) => {
           let {
+            sha,
             commit: {
               message,
               author: { name, date }
@@ -55,7 +56,7 @@ export default function DetailScreen({
             <ListItem
               title={message}
               subtitle={moment(date).format("lll")}
-              extraText={name}
+              extraText={`${name}\n${sha}`}
               onPress={() => navigate("Commit", { commitObject: item })}
             />
           );

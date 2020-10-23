@@ -3,6 +3,7 @@ import { View, FlatList, Dimensions, Modal, Text } from "react-native";
 import { SearchBar, Label, ListItem } from "../components";
 import { Button, Overlay } from "react-native-elements";
 import moment from "moment";
+
 const { width, height, fontScale } = Dimensions.get("window");
 
 export default function Popup({ visible, onClose }) {

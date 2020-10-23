@@ -1,3 +1,4 @@
 import HomeScreen from "./HomeScreen";
 import DetailScreen from "./DetailScreen";
-export { HomeScreen, DetailScreen };
+import CommitHash from "./CommitHash";
+export { HomeScreen, DetailScreen, CommitHash };

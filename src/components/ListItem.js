@@ -5,10 +5,10 @@ import Label from "./Label";
 export default function ListItem({
   title,
   subtitle = "",
+  extraText = null,
   onPress,
   uri = null
 }) {
-  console.log(uri);
   return (
     // <View style={{ width: "100%", backgroundColor: "purple" }}>
     //   <Label type="header">{title}</Label>.
@@ -22,6 +22,9 @@ export default function ListItem({
           {title}
         </ListItemElements.Title>
         <ListItemElements.Subtitle>{subtitle}</ListItemElements.Subtitle>
+        {extraText && (
+          <ListItemElements.Subtitle>{extraText}</ListItemElements.Subtitle>
+        )}
       </ListItemElements.Content>
       <ListItemElements.Chevron />
     </ListItemElements>

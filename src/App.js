@@ -17,7 +17,6 @@ function App() {
           }
         }}
       >
-        {/* <Stack.Screen name="Hash" component={CommitHash} /> */}
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Detail" component={DetailScreen} />
         <Stack.Screen name="Commit" component={CommitDetails} />

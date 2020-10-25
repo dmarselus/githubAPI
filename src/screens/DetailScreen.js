@@ -10,6 +10,8 @@ export default function DetailScreen({
     params: { repoName, userName }
   }
 }) {
+  //Array for commits that is used to store commits
+  //after fetching from github api and rerender the page
   const [commitsArray, setCommitsArray] = useState([]);
 
   useEffect(() => {
@@ -24,6 +26,14 @@ export default function DetailScreen({
     if (repoName && userName) getCommitsDetail();
   }, []);
 
+  /**
+   * @getCommitsDetail function
+   *
+   * @param  none
+   * @return void
+   * @description format screens params to call the github api and set
+   *              commitArray from the result
+   */
   async function getCommitsDetail() {
     let formattedRepoName = repoName.toLowerCase().trim();
     let formattedUserName = userName.toLowerCase().trim();
@@ -33,10 +43,24 @@ export default function DetailScreen({
     else setCommitsArray([]);
   }
 
+  /**
+   * @renderHeader function
+   *
+   * @param  none
+   * @return JSX
+   * @description render Label with screen params
+   */
   function renderHeader() {
     return <Label type="header">{`${userName}/${repoName}`}</Label>;
   }
 
+  /**
+   * @renderBody function
+   *
+   * @param  none
+   * @return JSX
+   * @description render FlatList with commits array
+   */
   function renderBody() {
     return (
       <FlatList
@@ -56,7 +80,7 @@ export default function DetailScreen({
             <ListItem
               title={message}
               subtitle={moment(date).format("lll")}
-              extraText={`${name}\n${sha}`}
+              extraText={`${name}\nSha: ${sha}`}
               onPress={() => navigate("Commit", { commitObject: item })}
             />
           );

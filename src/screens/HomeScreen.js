@@ -1,12 +1,23 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { Button, View, FlatList, Dimensions } from "react-native";
 import { SearchBar, Label, ListItem } from "../components";
-const { width, height, fontScale } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
 
 export default function HomeScreen({ navigation: { navigate } }) {
+  //query state for search bar
   const [query, setQuery] = useState("");
+
+  //repo array for storing repositories from given query
   const [repoArray, setRepoArray] = useState([]);
 
+  /**
+   * @getUsername function
+   *
+   * @param  username = string
+   * @return void
+   * @description format given params to call the github api and set
+   *              repoArray from the result
+   */
   async function getUsername(username) {
     username = username.toLowerCase().trim();
     const url = `https://api.github.com/users/${username}/repos`;
@@ -15,6 +26,13 @@ export default function HomeScreen({ navigation: { navigate } }) {
     else setRepoArray([]);
   }
 
+  /**
+   * @renderHeader function
+   *
+   * @param  none
+   * @return JSX
+   * @description render Label,SearchBar and Submit Button
+   */
   function renderHeader() {
     return (
       <View>
@@ -25,11 +43,17 @@ export default function HomeScreen({ navigation: { navigate } }) {
           onChangeText={(text) => setQuery(text)}
         />
         <Button onPress={() => getUsername(query)} title="Submit" />
-        <Button onPress={() => navigate("Hash")} title="Hash" />
       </View>
     );
   }
 
+  /**
+   * @renderBody function
+   *
+   * @param  none
+   * @return JSX
+   * @description render FlatList with repo array
+   */
   function renderBody() {
     return (
       <FlatList
